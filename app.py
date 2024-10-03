@@ -13,16 +13,18 @@ nest_asyncio.apply()
 # Load environment variables
 load_dotenv()
 
+google_key=st.secrets['GOOGLE_KEY']
 # Initialize the LLM (Generative AI model)
 llm = ChatGoogleGenerativeAI(
     model="gemini-1.5-flash",
     verbose=True,
     temperature=0.5,
-    google_api_key=os.getenv("GOOGLE_API_KEY")
+    google_api_key=google_key
 )
 
 # Define tools and agents
-os.environ['SERPER_API_KEY'] = os.getenv('SERPER_API_KEY')
+Serper_key = st.secerets['SERPER_KEY']
+os.environ['SERPER_API_KEY'] = Serper_key
 search_tool = SerperDevTool()
 scrape_tool = ScrapeWebsiteTool()
 
@@ -127,7 +129,7 @@ def main():
     st.title("Generative AI Use Case Assistant")
 
     # Input text box for the company name
-    company_name = st.text_input("Enter the company name or query")
+    company_name = st.text_input("Enter the company name")
 
     # Kaggle URL input
     kaggle_url = "https://www.kaggle.com"  # Default value; can be modified to take dynamic input
